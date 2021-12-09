@@ -172,8 +172,5 @@ class App {
     }
     list__items.insertAdjacentHTML('afterbegin', html);
   }
-  _closeMap(){
-
-  }
 }
 const app = new App()
