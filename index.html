@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <!-- <script defer src="other.js"></script> -->
+    <script defer src="main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="list">
+        <div class="list__logo">
+          <ion-icon name="location-outline"></ion-icon>
+          <p>mapty</p>
+        </div>
+        <div class="form">
+          <form class="hidden__form">
+            <div class="form__item">
+                <label for="type">Type</label>
+                <select name="type" id="type">
+                    <option value="Running">Running</option>
+                    <option value="Cycling">Cycling</option>
+                </select>
+            </div>
+            <div class="form__item">
+                <label for="distance">Distance</label>
+                <input type="text" name="distance" id="distance" placeholder="km">
+            </div>
+            <div class="form__item">
+                <label for="duration">Duration</label>
+                <input type="text" name="duration" id="duration" placeholder="min">
+            </div>
+            <div class="form__item">
+                <label for="cadence">Cadence</label>
+                <input type="text" name="candence" id="cadence" placeholder="step/min">
+            </div>
+            <div class="form__item form__hidden__row">
+              <label for="elevgain">Elev Gain</label>
+              <input type="text" name="elevgain" id="elevgain" placeholder="meters">
+            </div>
+        </form>
+          <ul class="list__items">
+          
+          </ul>
+        </div>
+        <div class="list__copyright">
+          <p>
+            Copyright by <a href="">jonas schemadtman</a>.Use for learn or your
+            portfolio. Don't use to teach. Don't claim as your own.
+          </p>
+        </div>
+      </div>
+      <map id="map">
+        <area href="'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'" />
+      </map>
+    </div>
+  </body>
+</html>
