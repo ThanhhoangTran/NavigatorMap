@@ -57,8 +57,8 @@ class App {
     this._getPosition();
     type.addEventListener('change', this._toggleElevationField.bind(this));
     form.addEventListener('keydown', this._newWorkout.bind(this));
-     window.addEventListener('load', this._loadLocalStage.bind(this));
     list__items.addEventListener('click', this._moveClickList.bind(this));
+    window.addEventListener('load', this._loadLocalStage.bind(this));
     window.addEventListener('beforeunload', this._saveLocalStage.bind(this));
   }
   _getPosition(){
@@ -81,29 +81,33 @@ class App {
     });
   }
   _loadLocalStage(){
-    if(window.localStorage){
       let data = JSON.parse(window.localStorage.getItem("map"));
-      this.#workouts = data;
-      this.#workouts.forEach(work=>{
-        this._renderList(work);
-        this._markupMap(work);
-      })
-    }
+      if(data){
+        this.#workouts = data;
+        setTimeout(()=>{
+          this.#workouts.forEach(w=>{
+            this._renderList(w);
+            console.log(this.#map);
+          });
+        })
+      }   
+      
   }
   _saveLocalStage(e){
     e.preventDefault();
-    console.log(e);
-    if(window.localStorage){
-      window.localStorage.setItem("map", JSON.stringify(this.#workouts));
-    }
+    window.localStorage.setItem("map", JSON.stringify(this.#workouts));
   }
   _loadMap(position){
-    const { longitude, latitude } = position.coords;
+          const { longitude, latitude } = position.coords;
           this.#map = L.map('map').setView([latitude, longitude], this.#mapZoomLevel);
+          console.log(this.#map);
           L.tileLayer(`https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png`, {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           }).addTo(this.#map);
           this.#map.on('click', this._showForm.bind(this));
+          this.#workouts.forEach(w=>{
+            this._markupMap(w);
+          })
   }
   _showForm(mapE){
           const {lat, lng}= mapE.latlng;
@@ -137,12 +141,13 @@ class App {
             return;
           }
           let t;
-         if(type.value =='Running') {
-            t = new Running(distance.value, duration.value, this.#mapEvent, cadence.value);
-           this.#workouts.push(t);
-         } else {
+          if(type.value =='Running') {
+           t = new Running(distance.value, duration.value, this.#mapEvent, cadence.value);
+            this.#workouts.push(t);
+         }
+         if(type.value == "Cycling") {
            t = new Cycling(distance.value, duration.value, this.#mapEvent, elev.value);
-          this.#workouts.push(t);
+            this.#workouts.push(t); 
          }
          this._markupMap(t);
          this._renderList(t);
